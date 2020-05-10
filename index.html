@@ -9,22 +9,27 @@
         <canvas id="canvas" width="400" height="400"></canvas>
     </body>
     <script src="utils.js" type="text/javascript"></script>
+    <script src="arrow.js" type="text/javascript"></script>
     <script>
         window.onload = function() {
-            let canvas = document.getElementById("canvas");
-            /**let mouse = utils.captureMouse(canvas);
-            canvas.addEventListener("mousedown", function(event) {
-                console.log("Mouse x=" + mouse.x + " : y=" + mouse.y);
-            });*/
-            /*let touch = utils.captureTouch(canvas);
-            if(touch.isPressed) {
-                console.log("X=" + touch.x + ", Y=" + touch.y);
-            }**/
+            let canvas = document.getElementById("canvas"),
+                context = canvas.getContext("2d"),
+                mouse = utils.captureMouse(canvas),
+                arrow = new Arrow();
 
-            let degree = -30;
-            let radians = degree * Math.PI / 180;
-            console.log("Sine   : " + Math.sin(radians));
-            console.log("Cosine : " + Math.cos(radians));
+            arrow.x = canvas.width / 2;
+            arrow.y = canvas.height / 2;
+
+            (function drawFrame() {
+                window.requestAnimationFrame(drawFrame, canvas);
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                let dx = mouse.x - arrow.x,
+                    dy = mouse.y - arrow.y;
+
+                arrow.rotation = Math.atan2(dy, dx); // radians
+                arrow.draw(context);
+            })();
         }
     </script>
 </html>
