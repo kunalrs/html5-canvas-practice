@@ -19,15 +19,16 @@
                 ball = new Ball(),
                 centerX = canvas.width / 2,
                 centerY = canvas.height / 2,
-                radius = 150,
-                speed = 0.01;
+                radiusX = 80,
+                radiusY = 150,
+                speed = 0.1;
 
             (function drawFrame() {
                 window.requestAnimationFrame(drawFrame);
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
-                ball.x = centerX + Math.sin(angle) * radius;
-                ball.y = centerY + Math.cos(angle) * radius;
+                ball.x = centerX + Math.sin(angle) * radiusX;
+                ball.y = centerY + Math.cos(angle) * radiusY;
                 angle += speed;
                 ball.draw(context);
 
