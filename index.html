@@ -18,17 +18,18 @@
                 angle = 0,
                 centerY = 200,
                 range = 150,
-                speed = 0.05;
+                xSpeed = 1,
+                ySpeed = 0.05;
 
-            ball.x = canvas.width / 2;
-            ball.y = canvas.height / 2;
+            ball.x = 20;
 
             (function drawFrame() {
                 window.requestAnimationFrame(drawFrame);
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
+                ball.x += xSpeed;
                 ball.y = centerY + Math.sin(angle) * range;
-                angle += speed;
+                angle += ySpeed;
 
                 ball.draw(context);
             })();
