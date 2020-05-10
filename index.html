@@ -9,31 +9,33 @@
         <canvas id="canvas" width="400" height="400"></canvas>
     </body>
     <script src="utils.js" type="text/javascript"></script>
-    <script src="ball.js" type="text/javascript"></script>
     <script>
         window.onload = function() {
             let canvas = document.getElementById("canvas"),
                 context = canvas.getContext("2d"),
-                ball = new Ball(),
-                angleX = 0,
-                angleY = 0,
-                range = 150,
-                centerX = canvas.width / 2,
+                angle = 0,
+                range = 195,
                 centerY = canvas.height / 2,
-                xSpeed = 0.07,
-                ySpeed = 0.01;
+                xSpeed = 0.3,
+                ySpeed = 0.05,
+                xPos = 0,
+                yPos = centerY;
+
+            context.lineWidth = 2;
 
             (function drawFrame() {
                 window.requestAnimationFrame(drawFrame);
-                context.clearRect(0, 0, canvas.width, canvas.height);
 
-                ball.x = centerX + Math.sin(angleX) * range;
-                ball.y = centerY + Math.sin(angleY) * range;
+                context.beginPath();
+                context.moveTo(xPos, yPos);
+                // Calculate the new position
+                xPos += xSpeed;
+                angle += ySpeed;
+                yPos = centerY + Math.sin(angle) * range
+                context.lineTo(xPos, yPos);
 
-                angleX += xSpeed;
-                angleY += ySpeed;
+                context.stroke();
 
-                ball.draw(context);
             })();
         }
     </script>
