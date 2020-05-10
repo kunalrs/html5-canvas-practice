@@ -9,27 +9,30 @@
         <canvas id="canvas" width="400" height="400"></canvas>
     </body>
     <script src="utils.js" type="text/javascript"></script>
-    <script src="arrow.js" type="text/javascript"></script>
+    <script src="ball.js" type="text/javascript"></script>
     <script>
         window.onload = function() {
             let canvas = document.getElementById("canvas"),
                 context = canvas.getContext("2d"),
-                mouse = utils.captureMouse(canvas),
-                arrow = new Arrow();
+                ball = new Ball(),
+                angle = 0,
+                centerY = 200,
+                range = 150,
+                speed = 0.05;
 
-            arrow.x = canvas.width / 2;
-            arrow.y = canvas.height / 2;
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
 
             (function drawFrame() {
-                window.requestAnimationFrame(drawFrame, canvas);
+                window.requestAnimationFrame(drawFrame);
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
-                let dx = mouse.x - arrow.x,
-                    dy = mouse.y - arrow.y;
+                ball.y = centerY + Math.sin(angle) * range;
+                angle += speed;
 
-                arrow.rotation = Math.atan2(dy, dx); // radians
-                arrow.draw(context);
+                ball.draw(context);
             })();
+
         }
     </script>
 </html>
