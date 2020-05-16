@@ -14,38 +14,22 @@
             window.onload = function() {
                 let canvas = document.getElementById("canvas"),
                     context = canvas.getContext("2d"),
-                    log = document.getElementById("log"),
-                    mouse = utils.captureMouse(canvas),
-                    rect = {
-                        x: canvas.width / 2,
-                        y: canvas.height / 2
-                    };
+                    mouse = utils.captureMouse(canvas);
 
-
-                (function drawFrame() {
-                    window.requestAnimationFrame(drawFrame);
-                    context.clearRect(0, 0, canvas.width, canvas.height);
-
-                    // Calculate distance from mouse
-                    let dx = rect.x - mouse.x,
-                        dy = rect.y - mouse.y,
-                        distance = Math.sqrt(dx * dx + dy * dy);
-
-                    log.value = distance;
-
-                    // Draw Square
-                    context.fillStyle = "rgba(255,0,0,0.9)";
-                    context.fillRect(rect.x - 2, rect.y - 2, 4, 4);
-
-                    // Draw line
-                    context.beginPath();
-                    context.moveTo(rect.x, rect.y);
+                function onMouseMove() {
                     context.lineTo(mouse.x, mouse.y);
-                    //context.fill("rgba(255,0,0,0.1)");
-                    context.closePath();
                     context.stroke();
+                }
 
-                })();
+                canvas.addEventListener("mousedown", function() {
+                    context.beginPath();
+                    context.moveTo(mouse.x, mouse.y);
+                    canvas.addEventListener("mousemove", onMouseMove);
+                });
+
+                canvas.addEventListener("mouseup", function() {
+                    canvas.removeEventListener("mousemove", onMouseMove);
+                });
             }
         </script>
     </body>
