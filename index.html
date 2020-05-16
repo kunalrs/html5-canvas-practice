@@ -34,13 +34,14 @@
                     log.value = distance;
 
                     // Draw Square
-                    context.fillStyle = "#000000";
+                    context.fillStyle = "rgba(255,0,0,0.9)";
                     context.fillRect(rect.x - 2, rect.y - 2, 4, 4);
 
                     // Draw line
                     context.beginPath();
                     context.moveTo(rect.x, rect.y);
                     context.lineTo(mouse.x, mouse.y);
+                    //context.fill("rgba(255,0,0,0.1)");
                     context.closePath();
                     context.stroke();
 
